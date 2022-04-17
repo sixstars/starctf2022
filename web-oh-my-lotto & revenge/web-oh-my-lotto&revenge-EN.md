@@ -1,4 +1,4 @@
-# web-on-my-lotto&revenge-EH
+# web-oh-my-lotto&revenge-EH
 
 ## Something
 
@@ -6,13 +6,13 @@ Due to poor consideration, this question may not bring a better experience to yo
 
 ## Unintented writeup
 
-### on-my-lotto
+### oh-my-lotto
 
 * Use `WGETRC` to set `http_proxy` proxy to your own server, download a file like forecast file, and you can get the flag.
 
 * Use `PATH` to  let `lotto_result.txt` save to another path and app get `lotto_result.txt` is string `result`. You can get the flag by uploading a `result` string.
 
-### on-my-lotto-revenge
+### oh-my-lotto-revenge
 
 * Use `WGETRC` to set `http_proxy` and `output_documen`, cover the local wget application, and then use wget to complete RCE.
 

@@ -1,4 +1,4 @@
-# web-on-my-lotto&revenge-ZH
+# web-oh-my-lotto&revenge-ZH
 
 ## 写在前面的话
 
@@ -6,13 +6,13 @@
 
 ## 非预期解
 
-### on-my-lotto
+### oh-my-lotto
 
 * 利用`WGETRC`设置`http_proxy`代理到自己服务器，下载一个和`forecast`一样的文件，可以获得flag。
 
 * 利用`PATH`，将`lotto_result.txt`保存到其他路径，此时获得的`lotto_result.txt`为`result`，通过上传一个`result`字符串可以获得flag。
 
-### on-my-lotto-revenge
+### oh-my-lotto-revenge
 
 * 利用`WGETRC`配合`http_proxy`和`output_document`，覆盖本地的wget应用，然后利用wget完成RCE。
 
