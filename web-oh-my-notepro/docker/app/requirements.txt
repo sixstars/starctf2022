@@ -1,0 +1,6 @@
+flask
+flask_sqlalchemy
+gunicorn==19.2
+gevent
+pymysql
+flask_wtf

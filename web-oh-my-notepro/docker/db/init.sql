@@ -1,0 +1,30 @@
+
+
+CREATE DATABASE IF NOT EXISTS ctf;
+
+use ctf;
+
+CREATE USER 'ctf3'@'%' IDENTIFIED BY 'ctf123456';
+GRANT CREATE,INSERT,UPDATE,SELECT  ON ctf. * TO 'ctf3'@'%';
+
+CREATE TABLE `users` (
+  `id` int AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS notes(
+    id int AUTO_INCREMENT,
+    username LONGTEXT NOT NULL,
+    note_id LONGTEXT NOT NULL,
+    text LONGTEXT NOT NULL,
+    title LONGTEXT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+
+ALTER TABLE users CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE notes CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;

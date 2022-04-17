@@ -1,0 +1,42 @@
+version: "3"  # docker-compose版本
+services:
+  # ftp:
+  #   restart: always
+  #   build:
+  #     context: ftp/
+  #     dockerfile: Dockerfile
+  #   container_name: web_ftp
+  #   volumes:  # 挂载目录
+  #     - ./ftp/source:/app  # 项目相关
+
+  lotto:  # docker-compose编排名称，一般同微服务名称，注意不要与其他服务重名
+    build:
+      context: lotto/
+      dockerfile: Dockerfile
+    # links:
+    #   - ftp
+    # container_name: "lotto"
+    container_name: "${COMPOSE_PROJECT_NAME}_lotto"
+    # volumes:  # 挂载目录
+      # - ./code:/app  # 项目相关
+      
+    # ports:  # 端口映射
+    #   - "8880:8080"
+
+
+  app:  # docker-compose编排名称，一般同微服务名称，注意不要与其他服务重名
+    build:
+      context: app/
+      dockerfile: Dockerfile
+    links:
+      - lotto
+    # container_name: "app"
+    container_name: "${COMPOSE_PROJECT_NAME}_app"
+    # volumes:  # 挂载目录
+      # - ./app/source:/app  # 项目相关
+      
+    ports:  # 端口映射
+      - "${PORT}:8080"
+      # - "8880:8080"
+    
+    
