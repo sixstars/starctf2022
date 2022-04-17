@@ -1,5 +1,8 @@
 ## Overfit
 
+Feed "*CTF{" into model, flag is the output.
+File structure indicates that it is a pretrained model from transformers libarary, and the generate function could help with the generation.
+
 Overfit即过拟合。
 
 将字符串"*CTF{“喂入模型，得到模型的输出即为flag。
