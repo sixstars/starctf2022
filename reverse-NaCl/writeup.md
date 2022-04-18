@@ -1,10 +1,10 @@
 ### NaCl writeup
 
 #### 1. main logic in `src.c`
-#### 2. this challenge is likely Google Native NaCl project. It includes jump check, memory check and align check. But I alse replace the stack registers, use r15 to replace rsp, r14 to replace rbp. And there are no call, ret and leave. Here is only jmp. Access memory by addding r13 to get address. 
-#### 3. i put the loader function and the native client binary together. the section SFI is NaCl's code, and SFI_DATA is data section. 
+#### 2. this challenge is likely Google Native NaCl project. It includes jump check, memory check and align check. But I alse replace the stack registers, use r15 to replace rsp, r14 to replace rbp. And here are no call, ret and leave. Here is only jmp. Access memory by adding r13 to get memory address. 
+#### 3. Moreover, i put the loader function and the native client binary together. the section SFI is NaCl's code, and SFI_DATA is data section. 
 #### 4. expected solution is as follows: firstly, dump section SFI and SFI_data. Then, you modify the binary by script code. you need to recover stack, register and instrcution call, ret, etc. Lastly, you can disassemble the new binary by ida or other tools. Then you can got simple logic.
-#### 5. i am sorry that all players solved this challenge by dynamic debugging and static Analysis of orginal assembly code. Because my hide logic code is short. So bad.
+#### 5. i am sorry that all players solved this challenge by dynamic debugging and static analysis of orginal assembly code. Because my hide logic code is short. So bad.
 #### 6. decoding logic is as follows:
 ```C
 #include <stdio.h>
