@@ -21,7 +21,7 @@ There is a stackoverflow vulnerability when processing icmp packet, it copy orig
 
 
 
-You need to send a icmp packet, control pc, copy flag at a fixed address to icmp reply packet and send it back. Don't forget calc your ip packet checksum.
+You need to send a icmp packet, control pc, copy flag at a fixed address to icmp reply packet and send it back. Don't forget to calc your ip packet checksum.
 
 
 
