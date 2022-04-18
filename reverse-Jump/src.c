@@ -6,7 +6,7 @@
 
 const char STX = '\002', ETX = '\003';
 char ret[60] = {0x3, 0x6a, 0x6d, 0x47, 0x6e, 0x5f, 0x3d, 0x75, 0x61, 0x53, 0x5a, 0x4c, 0x76, 0x4e, 0x34, 0x77, 0x46, 0x78, 0x45, 0x36, 0x52, 0x2b, 0x70, 0x2, 0x44, 0x32, 0x71, 0x56, 0x31, 0x43, 0x42, 0x54, 0x63, 0x6b};
-char tests[60]; 
+char flag[60]; 
 char r[60];
 int LEN = 34;
 char *ss, *str;
@@ -25,7 +25,7 @@ static int compareStrings(const void *a, const void *b)
 
 void setionA()
 {
-    if (strchr(tests, STX) || strchr(tests, ETX))
+    if (strchr(flag, STX) || strchr(flag, ETX))
     {
         longjmp(bufferA, 1);
     }
@@ -34,7 +34,7 @@ void setionA()
     {
         longjmp(bufferA, 2);
     }
-    sprintf(ss, "%c%s%c", STX, tests, ETX);
+    sprintf(ss, "%c%s%c", STX, flag, ETX);
     jmp_ret = setjmp(bufferB);
     if (jmp_ret == 0)
         longjmp(bufferA, 1);
@@ -70,7 +70,7 @@ void setionB()
 
 int main()
 {
-    gets(tests);
+    gets(flag);
     int i;
     int jmp_ret = setjmp(bufferA);
     if (jmp_ret == 0)
@@ -108,6 +108,6 @@ int main()
     if (jmp_ret == 0)
         longjmp(bufferC, LEN + 1);
     if (jmp_ret == 1)
-        printf("*CTF{%s}\n", tests);
+        printf("*CTF{%s}\n", flag);
     return 0;
 }
