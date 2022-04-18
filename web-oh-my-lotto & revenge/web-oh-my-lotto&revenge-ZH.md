@@ -10,7 +10,7 @@
 
 * 利用`WGETRC`设置`http_proxy`代理到自己服务器，下载一个和`forecast`一样的文件，可以获得flag。
 
-* 利用`PATH`，将`lotto_result.txt`保存到其他路径，此时获得的`lotto_result.txt`为`result`，通过上传一个`result`字符串可以获得flag。
+* 首先获得一次lotto的结果，然后将这个结果作为forecast上传，利用`PATH`，将新的`lotto_result.txt`保存到其他路径，这样获取到的lotto就能与forecast相等，即可获得flag。
 
 ### oh-my-lotto-revenge
 
