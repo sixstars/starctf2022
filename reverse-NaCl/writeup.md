@@ -16,9 +16,7 @@
 #define ROR(x, r) ((x >> r) | (x << (32 - r)))
 #define ROL(x, r) ((x << r) | (x >> (32 - r)))
 
-
 unsigned char key[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF};
-
 
 void decipher(unsigned int num_rounds, uint32_t *v)
 {
@@ -56,13 +54,8 @@ uint32_t *generateSubkeys()
     // the 128 bit key is placed in two integers, both of them are 64 bit
     uint64_t KeyHigh = *((uint64_t *)key);
     uint64_t KeyLow = *((uint64_t *)&key[8]);
-    // 0x67452301，0xEFCDAB89，0x98BADCFE，0x10325476
-    // 0xfc2ce51207a635dbLL
-    //  uint32_t c = 0xfffffffc;
     uint64_t z3 = 0x67452301EFCDAB89LL;
     uint32_t c = 0x98BADCFE;
-
-    // we allocate space for 32 subkeys, since there are 32 rounds
 
     roundKeys[0] = Words32ToBytes(KeyHigh >> 32);
     roundKeys[1] = Words32ToBytes(KeyHigh);
