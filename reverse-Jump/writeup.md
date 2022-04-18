@@ -1,8 +1,8 @@
 ### Jump writeup
 
-#### 1. 使用ida通过对代码的分析，或者使用相关库函数识别的工具，会发现本题是使用setjmp和longjmp函数对逻辑的函数流进行混淆的无符号binary。
+#### 1. Please analyse code by using ida, or dynamic debugging, you can get this challenge's logic that uses the setjmp and longjmp functions to obfuscate the function flow.
 
-#### 2. 逆向获得程序逻辑大概如下
+#### 2. the logic of this challenge you can get is as follows:
 
 ```C
     len = strlen(flag) + 2;
@@ -27,7 +27,7 @@
 	r[] == ?{0x3,0x6a,0x6d,0x47,0x6e,0x5f,0x3d,0x75,0x61,0x53,0x5a,0x4c,0x76,0x4e,0x34,0x77,0x46,0x78,0x45,0x36,0x52,0x2b,0x70,0x2,0x44,0x32,0x71,0x56,0x31,0x43,0x42,0x54,0x63,0x6b}
 ```
 
-#### 3. 写出简单的逆函数
+#### 3. Then you will solve the inverse function:
 
 ```C
     len = strlen(r);
@@ -51,7 +51,7 @@
         }
     }
 	
-	printf flag 便可得到flag
+	printf flag then you will got the flag
 ```
 
-#### 4. 本题其实是一个bzip2算法，关键在于分析setjmp和longjmp对函数流的隐藏，分析出正确的逻辑流，然后就可以写出解码函数，获得flag。
+#### 4. This problem is actually a bzip2 algorithm. The key of this challenge is to analyze the setjmp and longjmp to hide the function flow, the get the correct logic flow. Lastly, you can write the decoding function to get the flag.
