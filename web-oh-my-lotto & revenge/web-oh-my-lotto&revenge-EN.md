@@ -10,7 +10,7 @@ Due to poor consideration, this question may not bring a better experience to yo
 
 * Use `WGETRC` to set `http_proxy` proxy to your own server, download a file like forecast file, and you can get the flag.
 
-* First, get the result of lotto, then upload the result as a forecast, and use `PATH` to let the new `lotto_result.txt` save to other path, so that the lotto result can be equal to the forecast, and get the flag.
+* First, get the result of lotto, then upload the result as a forecast, and use `PATH` let wget error, so that the lotto result can be equal to the forecast, and get the flag.
 
 ### oh-my-lotto-revenge
 

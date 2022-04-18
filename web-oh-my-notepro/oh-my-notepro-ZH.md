@@ -8,17 +8,15 @@
 result = db.session.execute(sql,params={"multi":True})
 ```
 
-可知此处表明存在堆叠注入的可能，猜测是MySQL的堆叠注入读取文件，并同时利用debug信息的报错返回可以读取本地文件，利用`load_file`结合debug信息返回配合报错注入可以读取到`/etc/passwd`，但尝试根据pin码伪造需要的文件名信息进行读取时，发现无法读到对应文件内容，此处和`load_file`的使用特性有关，`load_file`无法成功读取一些涉及系统信息的文件，改用`load data infile`来读取，发现能读到涉及MAC等pin码伪造的必要信息，但开始构造pin码时并不能计算出正常的pin码，原因有两点：
 
-
-* MySQL服务和Web服务分属两个不同的容器，使用`load data infile`读取到的是MySQL容器的文件信息，该文件信息并不是Web服务的运行环境信息，所以应该使用`load data local infile`来读取Web服务的文件信息来构造pin码，参考POC如下
+可知此处表明存在堆叠注入的可能，猜测是MySQL的堆叠注入读取文件，并同时利用debug信息的报错返回可以读取本地文件，使用`load data local infile`来读取Web服务的文件信息来构造pin码，参考POC如下
 
 ```
 view?note_id=';CREATE TABLE IF NOT EXISTS {tmp_database}(cmd text);Load data local infile '{file}' into table {tmp_database};select * from users where username=1 and (extractvalue(1,concat(0x7e,(select substr((select group_concat(cmd) from {tmp_database}),{str(z)},{str(20)})),0x7e)));
 ```
 
 
-* 通过翻阅源码可知，Werkzeug的更新给pin码的计算方式带来了变化`https://github.com/pallets/werkzeug/commit/617309a7c317ae1ade428de48f5bc4a906c2950f`，直接使用网上大多数的pin码计算方式并不能计算出当前环境下正确的pin码，主要有两个变化，一个是修改以前是读取`/proc/self/cgroup、/etc/machine-id、/proc/sys/kernel/random/boot_id`这三个文件，读取到一个文件的内容，直接返回，新版本是从`/etc/machine-id、/proc/sys/kernel/random/boot_id`中读到一个值后立即break，然后和`/proc/self/cgroup`中的id值拼接，使用拼接的值来计算pin码；二一个变化是h的计算从md5变为了使用sha1，所以计算pin码的POC也要进行相应的调整，此外输入正确的pin码以后大概率会出现404等错误，可以通过清理网站缓存然后开启一个新的无痕会话来解决这个问题。
+通过翻阅源码可知，Werkzeug的更新给pin码的计算方式带来了变化`https://github.com/pallets/werkzeug/commit/617309a7c317ae1ade428de48f5bc4a906c2950f`，直接使用网上大多数的pin码计算方式并不能计算出当前环境下正确的pin码，主要有两个变化，一个是修改以前是读取`/proc/self/cgroup、/etc/machine-id、/proc/sys/kernel/random/boot_id`这三个文件，读取到一个文件的内容，直接返回，新版本是从`/etc/machine-id、/proc/sys/kernel/random/boot_id`中读到一个值后立即break，然后和`/proc/self/cgroup`中的id值拼接，使用拼接的值来计算pin码；二一个变化是h的计算从md5变为了使用sha1，所以计算pin码的POC也要进行相应的调整，此外输入正确的pin码以后大概率会出现404等错误，可以通过清理网站缓存然后开启一个新的无痕会话来解决这个问题。
 
 参考POC如下
 

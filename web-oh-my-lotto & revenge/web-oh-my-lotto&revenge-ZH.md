@@ -10,7 +10,7 @@
 
 * 利用`WGETRC`设置`http_proxy`代理到自己服务器，下载一个和`forecast`一样的文件，可以获得flag。
 
-* 首先获得一次lotto的结果，然后将这个结果作为forecast上传，利用`PATH`，将新的`lotto_result.txt`保存到其他路径，这样获取到的lotto就能与forecast相等，即可获得flag。
+* 首先获得一次lotto的结果，然后将这个结果作为forecast上传，利用`PATH`，使得wget异常，这样获取到的lotto就能与forecast相等，即可获得flag。
 
 ### oh-my-lotto-revenge
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0', port=8080)
 ```
 
-此时发现已经覆盖了题目的`app.py`，但并不能直接RCE，因为题目使用gunicorn部署，`app.py`在改变的情况下并不会实时加载。但gunicorn使用一种`pre-forked worker`的机制，当某一个worker超时以后，就会让gunicorn重启该worker，让worker超时的的POC如下
+此时发现已经覆盖了题目的`app.py`，但并不能直接RCE，因为题目使用gunicorn部署，`app.py`在改变的情况下并不会实时加载。但gunicorn使用一种`pre-forked worker`的机制，当某一个worker超时以后，就会让gunicorn重启该worker，让worker超时的POC如下
 
 ```
 timeout 50 nc ip 53000 &
