@@ -1,0 +1,14 @@
+*.DS_Store
+*.o
+*.img
+*.elf
+*.so
+
+.settings/*
+.project
+.cproject
+.gdb_history
+
+
+
+sftp-config.json
