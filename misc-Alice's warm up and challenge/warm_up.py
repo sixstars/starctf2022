@@ -26,6 +26,7 @@ def char2num(ch):
         if(ch==tmpset[i]):
             return i
 
+#参考了https://blog.csdn.net/qq_44783177/article/details/108782174的实现
 def get_0_1_array(x,y,rate=0.2):
     #得到一个全1矩阵，按照rate=0.5的比率生成新矩阵
     array = np.ones(x*y)
@@ -91,9 +92,6 @@ print('edge num: ',sum,'\nnot num: ',cnt-sum)
 net=AliceNet1()
 for name in net.state_dict():
     print(name)
-
-
-
 
 print(net.state_dict()['fc.0.weight'])
 tmpweight=net.state_dict()
