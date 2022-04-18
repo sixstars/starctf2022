@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms
-
+#参考了https://github.com/mit-han-lab/dlg中的实现
 class AliceNet2(nn.Module):
     def __init__(self):
         super(AliceNet2, self).__init__()
